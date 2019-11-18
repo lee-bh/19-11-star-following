@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		body{margin:0; background: black}
+		#star{display: none;}
+		.starClone{ position: absolute; left:0; top:0;
+			width:50px; height:50px;  }
+
+	</style>
+</head>
+<body>
+<img src="star.svg" id="star">
+<script type="text/javascript">
+
+	var starArray = [];
+
+	var t = document.getElementById("star");
+	for(var i=0; i<30; i++){
+		var n = t.cloneNode(true);
+		n.style.display = "block";
+		n.className = "starClone";
+		n.id = "s" + i;
+		n.style.left = Math.random()*800 + "px";
+		n.style.top = Math.random()*5400 + "px";
+		n.addEventListener("mouseover", myFunction);
+		document.body.appendChild(n);	
+	}
+	
+	function myFunction(){
+		this.style.left = event.clientX;
+		this.style.top = event.clientY;	
+		console.log(event.clientX);
+		console.log(event.clientY);
+		starArray.push(event.target.id);
+		this.removeEventListener("mouseover", myFunction);
+		console.log(starArray);
+	}
+
+	window.onmousemove = function(){
+		for(var i=0; i<starArray.length; i++){
+			var t = document.getElementById(starArray[i]);
+			t.style.left = (event.pageX + Math.random()*10) + "px";
+			t.style.top = (event.pageY + Math.random()*10) + "px";
+		}
+	}
+</script>
+</body>
+</html>
